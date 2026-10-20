@@ -22,3 +22,8 @@ export * from './enums';
  * 
  */
 export type Task = Prisma.TaskModel
+/**
+ * Model Category
+ * 
+ */
+export type Category = Prisma.CategoryModel

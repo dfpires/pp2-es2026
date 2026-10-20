@@ -5,6 +5,8 @@ import { errorHandler } from
   "./middlewares/errorHandler";
 
 import taskRoutes from "./routes/taskRoutes";
+import categoryRoutes from
+  "./routes/categoryRoutes";
 
 
 const app = express(); // app representar servidor HTTP
@@ -17,6 +19,8 @@ app.get("/", (req, res) => {
 });
 
 app.use("/tasks", taskRoutes);
+app.use("/categories", categoryRoutes);
+
 
 app.use(errorHandler); // middleware de tratamento de erros
 app.listen(3000); // servidor vai escutar requisições na porta 3000
