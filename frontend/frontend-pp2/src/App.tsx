@@ -1,8 +1,10 @@
 import Card from './Card'
 import Contador from './Contador'
 import Imc from './imc'
+import ListaFiltrada from './ListaFiltrada'
 import ListaSimples from './ListaSimples'
 import ListaTarefas from './ListaTarefas'
+import ListaApi from './ListaApi'
 // componente funcional do react, que retorna HTML
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
         <Imc/>
         <ListaSimples/>
         <ListaTarefas/>
+        <ListaFiltrada/>
+        <ListaApi/>
     </div>
   )
 }
