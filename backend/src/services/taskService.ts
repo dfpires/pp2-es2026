@@ -44,6 +44,19 @@ export async function update(
   data: UpdateTaskDTO
 ) {
   await findById(id); // atualiza apenas se a task existir
+
+  if (data.title !== undefined && !data.title) {
+    throw new AppError(
+      "Título é obrigatório", 400
+    );
+  }
+
+  if (data.categoryId != null) {
+    await categoryService.findById(
+      data.categoryId
+    );
+  }
+
   return taskRepository.update(id, data);
 }
 

@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import { parseId } from "../middlewares/parseId";
 import * as categoryService from
   "../services/categoryService";
 
@@ -12,7 +13,7 @@ export async function list(
 export async function getById(
   req: Request, res: Response
 ) {
-  const id = Number(req.params.id);
+  const id = parseId(req.params.id);
   const category = await
     categoryService.findById(id);
   res.json(category);
@@ -28,7 +29,7 @@ export async function create(
 export async function update(
   req: Request, res: Response
 ) {
-  const id = Number(req.params.id);
+  const id = parseId(req.params.id);
   const category = await
     categoryService.update(id, req.body);
   res.json(category);
@@ -37,7 +38,7 @@ export async function update(
 export async function remove(
   req: Request, res: Response
 ) {
-  const id = Number(req.params.id);
+  const id = parseId(req.params.id);
   await categoryService.remove(id);
   res.status(204).send();
 }

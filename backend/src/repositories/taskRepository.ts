@@ -5,6 +5,7 @@ import { UpdateTaskDTO } from "../types/task";
 export function findAll() {
   return prisma.task.findMany({
     include: { category: true },
+    orderBy: { id: "asc" },
   });
 }
 

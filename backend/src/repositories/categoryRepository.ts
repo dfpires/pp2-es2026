@@ -5,7 +5,9 @@ import { UpdateCategoryDTO } from
   "../types/category";
 
 export function findAll() {
-  return prisma.category.findMany();
+  return prisma.category.findMany({
+    orderBy: { id: "asc" },
+  });
 }
 
 export function findById(id: number) {

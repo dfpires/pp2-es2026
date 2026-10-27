@@ -5,6 +5,7 @@ import ListaFiltrada from './ListaFiltrada'
 import ListaSimples from './ListaSimples'
 import ListaTarefas from './ListaTarefas'
 import ListaApi from './ListaApi'
+import TarefasPorUsuario from './TarefasPorUsuario'
 // componente funcional do react, que retorna HTML
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <ListaTarefas/>
         <ListaFiltrada/>
         <ListaApi/>
+        <TarefasPorUsuario/>
     </div>
   )
 }

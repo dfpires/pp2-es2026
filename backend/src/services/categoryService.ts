@@ -38,6 +38,13 @@ export async function update(
   data: UpdateCategoryDTO
 ) {
   await findById(id);
+
+  if (data.name !== undefined && !data.name) {
+    throw new AppError(
+      "Nome é obrigatório", 400
+    );
+  }
+
   return categoryRepository.update(id, data);
 }
 
