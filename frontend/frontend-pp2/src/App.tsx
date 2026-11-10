@@ -1,41 +1,33 @@
-import Card from './Card'
-import Contador from './Contador'
-import ListaFiltrada from './ListaFiltrada'
-import ListaSimples from './ListaSimples'
-import ListaTarefas from './ListaTarefas'
-import ListaApi from './ListaApi'
-import TarefasPorUsuario from './TarefasPorUsuario'
+import { useState } from "react";
+import Tarefas from "./Tarefas";
+import Categorias from "./Category";
 
-import Tarefas from './Tarefas'
+const abas = [
+  { id: "tarefas", rotulo: "Tarefas" },
+  { id: "categorias", rotulo: "Categorias" },
+];
 
-// componente funcional do react, que retorna HTML
 function App() {
+  const [aba, setAba] = useState("tarefas");
   return (
-    <div className="p-6 flex flex-col gap-3">
-     {/*   <h1 className="text-3xl font-bold">
-          Hello, Paradigmas de Programação 2
-        </h1>
-        <Card 
-          title="Estudar" 
-          description="ReactJS e TailwindCSS" />
-        <Card 
-          title="Exercícios" 
-          description="Fazer a lista" />  
-        
-        <Contador/>
-        <Imc/>
-        <ListaSimples/>
-       */}
-    
-        <Tarefas />
-        {/* 
-        
-        <ListaFiltrada/>
-        <ListaApi/>
-        <TarefasPorUsuario/>
-        */}
+    <div className="p-6 space-y-4">
+      <nav className="flex gap-2">
+        {abas.map((a) => (
+          <button
+            key={a.id}
+            onClick={() => setAba(a.id)}
+            className={`px-3 py-1 rounded ${
+              aba === a.id ? "bg-teal-600 text-white" : "bg-slate-200"
+            }`}
+          >
+            {a.rotulo}
+          </button>
+        ))}
+      </nav>
+
+      {aba === "tarefas" ? <Tarefas /> : <Categorias />}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;

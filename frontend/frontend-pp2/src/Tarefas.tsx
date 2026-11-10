@@ -1,57 +1,57 @@
-import { useEffect, useState } from "react";
-import type {
-  updateTask,
-  Category,
-  NewTask,
-  Task,
-} from "./tipos";
-import {
-  atualizaTarefa,
-  criaTarefa,
-  listaCategorias,
-  listaTarefas,
-  removeTarefa,
-} from "./api";
-import FormTarefa from "./FormTarefa";
-import ItemTarefa from "./ItemTarefa";
+import {useEffect, useState} from "react"
 
-function Tarefas() {
-  const [tarefas, setTarefas] = useState<Task[]>([]);
-  const [categorias, setCategorias] = useState<Category[]>([]);
-  const [carregando, setCarregando] = useState(true);
-  const [erro, setErro] = useState<string | null>(null);
+import type { updateTask, Category, NewTask, Task } from "./tipos"
 
-    useEffect(() => {
+import { atualizaTarefa, criaTarefa, listaCategorias, listaTarefas, removeTarefa } from "./api"
+
+// importação de outros 2 componentes
+import FormTarefa from "./FormTarefa"
+import ItemTarefa from "./ItemTarefa"
+
+function Tarefas (){
+  const [tarefas, setTarefas] = useState<Task[]>([])
+  const [categorias, setCategorias] = useState<Category[]>([])
+  const [carregando, setCarregando] = useState(true)
+  const [erro, setErro] = useState<string | null> (null)
+
+  // executando quando componente for carregado
+  useEffect( () => {
     Promise.all([listaTarefas(), listaCategorias()])
       .then(([listaT, listaC]) => {
-        setTarefas(listaT);
-        setCategorias(listaC);
+        setTarefas(listaT)
+        setCategorias(listaC)
       })
-      .catch((e: Error) => setErro(e.message))
-      .finally(() => setCarregando(false));
-  }, []);
+      .catch((e:Error) => setErro(e.message))
+      .finally(() => setCarregando(false))
+  }, [])
 
+  // padrão de execução de função que chama a API
   async function executar(acao: () => Promise<void>) {
-    setErro(null);
+    setErro(null)
     try {
-      await acao();
-      return true;
-    } catch (e) {
-      setErro((e as Error).message);
-      return false;
+      await acao()
+      return true
+    }
+    catch(e) {
+      setErro((e as Error).message)
+      return false
     }
   }
-  // POST e PUT não devolvem category: montamos pela lista
+
+    // POST e PUT não devolvem category: montamos pela lista
   function comCategoria(t: Task): Task {
     const category = categorias.find((c) => c.id === t.categoryId) ?? null;
     return { ...t, category };
   }
 
-  async function criar(dados: NewTask) {
-    const criada = await criaTarefa(dados);
+    async function criar(dados: NewTask) {
+      // consome a API, cria tarefa no banco, e retorna tarefa criada
+    const criada = await criaTarefa(dados); 
+    // adiciona a nova tarefa no vetor, já com o id da categoria, caso exista
     setTarefas((atual) => [...atual, comCategoria(criada)]);
   }
-  function atualizar(id: number, dados: updateTask) {
+
+    function atualizar(id: number, dados: updateTask) {
     return executar(async () => {
       const nova = await atualizaTarefa(id, dados);
       setTarefas((atual) =>
@@ -70,7 +70,7 @@ if (carregando) return <p>Carregando...</p>;
 
   return (
     <div className="space-y-4 max-w-xl">
-      <FormTarefa categorias={categorias} onCriar={criar} />
+      <FormTarefa category={categorias} onCriar={criar} />
 
       {erro && <p className="text-red-600">Erro: {erro}</p>}
 
