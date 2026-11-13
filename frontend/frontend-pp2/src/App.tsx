@@ -1,33 +1,23 @@
-import { useState } from "react";
 import Tarefas from "./Tarefas";
 import Categorias from "./Category";
+import { Navigate, Route, Routes } from "react-router";
+import Layout from "./Layout";
+import NaoEncontrada from "./NaoEncontraod";
 
-const abas = [
-  { id: "tarefas", rotulo: "Tarefas" },
-  { id: "categorias", rotulo: "Categorias" },
-];
 
 function App() {
-  const [aba, setAba] = useState("tarefas");
   return (
-    <div className="p-6 space-y-4">
-      <nav className="flex gap-2">
-        {abas.map((a) => (
-          <button
-            key={a.id}
-            onClick={() => setAba(a.id)}
-            className={`px-3 py-1 rounded ${
-              aba === a.id ? "bg-teal-600 text-white" : "bg-slate-200"
-            }`}
-          >
-            {a.rotulo}
-          </button>
-        ))}
-      </nav>
-
-      {aba === "tarefas" ? <Tarefas /> : <Categorias />}
-    </div>
+    <Routes>
+      <Route element={<Layout />}>
+        <Route index element={<Navigate to="/tarefas" replace />} />
+        <Route path="tarefas" element={<Tarefas />} />
+        <Route path="categorias" element={<Categorias />} />
+        <Route path="*" element={<NaoEncontrada />} />
+      </Route>
+    </Routes>
   );
 }
 
+
 export default App;
+
