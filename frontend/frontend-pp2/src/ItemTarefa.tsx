@@ -1,5 +1,6 @@
 import {useState} from "react"
 import type { updateTask, Task } from "./tipos"
+import { Link } from "react-router";
 
 interface Props {
   tarefa: Task;
@@ -41,9 +42,9 @@ function ItemTarefa({tarefa, onAtualizar, onRemover}: Props){
       <button onClick={cancelar}>Cancelar</button>
       </> ) : (
         <>
-          <span className={`flex-1 ${tarefa.completed ? "line-through text-slate-400": ""}`}>
+          <Link to={`/tarefas/${tarefa.id}`} className={`flex-1 ${tarefa.completed ? "line-through text-slate-400": ""}`}>
             {tarefa.title}
-          </span>
+          </Link>
           {tarefa.category && (
             <span className="text-sm text-slate-500">
               {tarefa.category.name}

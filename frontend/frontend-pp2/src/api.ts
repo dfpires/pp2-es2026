@@ -70,3 +70,7 @@ export function atualizaCategoria(id: number, name: string){
 export function removeCategoria(id: number){
     return requisicao<void> (`/categories/${id}`, {method: "DELETE"})
 }
+
+export function buscarTarefa(id: number){
+    return requisicao<Task>(`/tasks/${id}`)
+}
